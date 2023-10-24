@@ -27,6 +27,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'medico_id',
+        'farmacia_id',
+        'admin',
     ];
 
     /**
@@ -61,12 +64,17 @@ class User extends Authenticatable
 
     public function isAdmin()   
     {
-        return $this->administrador !== null; // Verifica se o usuário possui um perfil de administrador associado
+        return $this->admin === 1;
     }
 
-    public function administrador()
+    public function isMedico()   
     {
-        return $this->hasOne(Administrador::class);
+        return !is_null($this->medico_id);
+    }
+
+    public function isFarmacia()   
+    {
+        return !is_null($this->farmacia_id);
     }
 
     public function medico()

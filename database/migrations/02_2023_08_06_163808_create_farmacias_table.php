@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('cidade', 100)->nullable(false);
             $table->string('bairro', 100)->nullable(false);
             $table->string('rua', 100)->nullable(false);
+            $table->string('numero', 9)->nullable(false);
             $table->string('qrcode_assinatura', 300)->nullable(true);
             $table->timestamps();
         });

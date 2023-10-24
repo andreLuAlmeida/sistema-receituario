@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Farmacia extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $table = 'farmacias';
     protected $primaryKey = 'id';
@@ -23,6 +22,7 @@ class Farmacia extends Model
         'cidade',
         'bairro',
         'rua',
+        'numero',
         'qrcode_assinatura',
     ];
 
@@ -33,9 +33,10 @@ class Farmacia extends Model
     }
 
     // Relação 1 para N com a model "RegistroDeDespensa"
-    public function registrosDeDespensa()
+    public function registrosDeDispensas()
     {
-        return $this->hasMany(RegistroDeDespensa::class);
+        return $this->hasMany(RegistroDeDispensa::class, 'farmacias_id');
     }
+
 
 }

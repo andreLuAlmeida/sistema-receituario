@@ -9,12 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Medico extends Model
 {
     use HasFactory;
-    use SoftDeletes;
-
     protected $table = 'medicos';
     protected $primaryKey = 'id';
     
     protected $fillable = [
+        'consultorio_clinica',
         'aprovado',
         'crm',
         'especialidade',
@@ -28,8 +27,20 @@ class Medico extends Model
         'cidade',
         'bairro',
         'rua',
+        'numero',
         'qrcode_assinatura',
+        'token_aprovacao',
     ];
+
+    public function generateUniqueToken()
+    {
+        do {
+            $token_aprovacao = Str::random(40); // Gere um token aleatório
+        } while (static::where('token_aprovacao', $token_aprovacao)->exists()); // Verifique se o token já existe na tabela
+
+        $this->update(['token_aprovacao' => $token_aprovacao]); // Atualize o campo 'token_aprovacao' do médico
+        return $token_aprovacao;
+    }
 
     // Relação 1 para N com a model "Users"
     public function users()
@@ -40,7 +51,7 @@ class Medico extends Model
     // Relação 1 para N com a model "Paciente"
     public function pacientes()
     {
-        return $this->hasMany(Paciente::class);
+        return $this->hasMany(Paciente::class, 'medicos_id');
     }
 
      // Relação 1 para N com a model "Receita"

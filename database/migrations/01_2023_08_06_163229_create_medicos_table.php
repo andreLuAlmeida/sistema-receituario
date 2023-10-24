@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('medicos', function (Blueprint $table) {
             $table->id();
+            $table->string('consultorio_clinica')->nullable(false);
             $table->boolean('aprovado')->default(false);
-            $table->string('crm', 10)->nullable(false);
+            $table->string('crm', 13)->nullable(false);
             $table->string('especialidade', 100)->nullable(false);
             $table->string('cpf', 15)->nullable(false);
             $table->string('rg', 15)->nullable(true);
@@ -26,6 +27,8 @@ return new class extends Migration
             $table->string('cidade', 100)->nullable(false);
             $table->string('bairro', 100)->nullable(false);
             $table->string('rua', 100)->nullable(false);
+            $table->string('numero', 9)->nullable(false);
+            $table->string('token_aprovacao', 64)->unique()->nullable();
             $table->string('qrcode_assinatura', 300)->nullable(true);
             $table->timestamps();
             $table->softDeletes();

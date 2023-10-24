@@ -27,14 +27,13 @@ class Paciente extends Model
         'bairro',
         'rua',
         'numero_residencial',
-        'informacoes_medicas',
         'medicos_id',
     ];
 
     // Relação com o modelo "Medico"
     public function medico()
     {
-        return $this->belongsTo(Medico::class, 'medicos_id');
+        return $this->belongsTo(Medico::class, 'medico_id');
     }
 
     // Relação 1 para N com a model "Receita"
@@ -42,5 +41,12 @@ class Paciente extends Model
     {
         return $this->hasMany(Receita::class);
     }
+
+    // Relação 1 para N com a model "observações"
+    public function observacoes()
+    {
+        return $this->hasMany(Observacao::class);
+    }
+
 }
 

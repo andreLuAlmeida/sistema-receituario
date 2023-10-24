@@ -30,7 +30,6 @@ return new class extends Migration
             $table->string('bairro', 100);
             $table->string('rua', 100);
             $table->string('numero_residencial', 10);
-            $table->longText('informacoes_medicas')->nullable();
 
             $table->foreignId('medicos_id')->constrained('medicos')->onDelete('cascade')->onUpdate('cascade');
                 
